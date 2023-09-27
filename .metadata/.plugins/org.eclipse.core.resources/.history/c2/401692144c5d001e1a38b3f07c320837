@@ -1,0 +1,10 @@
+package com.oredata.bookStore.business.responses;
+
+public class GetByOrderIdOrderDetailsResponse {
+	private Long id;
+    private String isbn;
+    private String title;
+    private String author;
+    private Double price;
+    private Integer quantity;
+}

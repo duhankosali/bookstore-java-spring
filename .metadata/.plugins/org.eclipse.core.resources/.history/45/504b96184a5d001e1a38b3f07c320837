@@ -1,0 +1,33 @@
+package com.oredata.bookStore.business.concretes;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.oredata.bookStore.business.abstracts.OrderService;
+import com.oredata.bookStore.business.responses.GetByUserIdOrdersResponse;
+import com.oredata.bookStore.common.utilities.mappers.ModelMapperService;
+import com.oredata.bookStore.dataAccess.abstracts.OrderRepository;
+import com.oredata.bookStore.entities.concretes.Orders;
+
+import lombok.AllArgsConstructor;
+
+@Service // Business
+@AllArgsConstructor
+public class OrderManager implements OrderService{
+	private OrderRepository orderRepository;
+	private ModelMapperService modelMapperService;
+
+	@Override
+    public List<GetByUserIdOrdersResponse> getByUserId(Long userId) {
+		System.out.print("Burasi: " + userId);
+		System.out.print("calisiyor");
+        List<Orders> orders = orderRepository.findOrdersByUserId(userId);
+        for (Orders order : orders) {
+            System.out.println(order.getOrderId());
+        }
+        List<GetByUserIdOrdersResponse> responses = modelMapperService.mapToList(orders, GetByUserIdOrdersResponse.class);
+        return responses;
+    }	
+
+}

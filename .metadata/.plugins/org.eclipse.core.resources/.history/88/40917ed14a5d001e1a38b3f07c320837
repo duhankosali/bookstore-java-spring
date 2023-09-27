@@ -1,0 +1,10 @@
+package com.oredata.bookStore.dataAccess.abstracts;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.oredata.bookStore.entities.concretes.OrderBook;
+import com.oredata.bookStore.entities.concretes.Orders;
+
+public interface OrderBookRepository extends JpaRepository<OrderBook, Long> {
+
+}

@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="books.sort(Comparator.comparing(GetAllBooksResponse::getCreatedAt).reversed());"/>
+		<item key="selection" value="  @OneToMany(mappedBy = &quot;order&quot;, cascade = CascadeType.ALL, fetch = FetchType.LAZY)"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="  @OneToMany(mappedBy = &quot;order&quot;, cascade = CascadeType.ALL, fetch = FetchType.LAZY)"/>
+			<item value="@OneToMany(mappedBy = &quot;order&quot;, cascade = CascadeType.ALL, fetch = FetchType.LAZY)"/>
 			<item value="ModelMapperService"/>
 			<item value="books.sort(Comparator.comparing(GetAllBooksResponse::getCreatedAt).reversed());"/>
 			<item value="booksResponse"/>
 			<item value="swagger"/>
 			<item value="ngfox-boot-star"/>
 			<item value="&#x09;&#x09;books.add(new Book(&quot;ISBN1&quot;, &quot;Title&quot;, &quot;Author&quot;, 15.5, 5));"/>
-			<item value="lombok"/>
-			<item value="public void setUpdatedAt(Date updatedAt) {"/>
 		</list>
 		<list key="replacehistory">
 		</list>

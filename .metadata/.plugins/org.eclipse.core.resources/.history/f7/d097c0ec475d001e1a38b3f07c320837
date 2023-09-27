@@ -1,0 +1,23 @@
+package com.oredata.bookStore.business.responses;
+
+import java.util.Date;
+import java.util.List;
+
+import com.oredata.bookStore.entities.concretes.OrderBook;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class GetByUserIdOrdersResponse {
+	private Long orderId;
+	private Long userId
+	private Double price;
+	private List<OrderBook> orderBooks;
+	private Date orderDate;
+	private Date createdAt;
+	private Date updatedAt;
+}

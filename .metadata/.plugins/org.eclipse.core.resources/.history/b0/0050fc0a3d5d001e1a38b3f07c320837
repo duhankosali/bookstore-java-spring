@@ -1,0 +1,15 @@
+package com.oredata.bookStore.business.responses;
+
+import java.util.Date;
+import java.util.List;
+
+import com.oredata.bookStore.entities.concretes.OrderBook;
+
+public class GetByUserIdOrdersResponse {
+	private Long orderId;
+	private Double price;
+	private List<OrderBook> orderBooks;
+	private Date orderDate;
+	private Date createdAt;
+	private Date updatedAt;
+}

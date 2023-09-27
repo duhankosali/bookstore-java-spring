@@ -1,0 +1,6 @@
+package com.oredata.bookStore.business.responses;
+
+public class GetByUserIdOrdersResponse {
+	private Long orderId;
+	private Double price;
+}

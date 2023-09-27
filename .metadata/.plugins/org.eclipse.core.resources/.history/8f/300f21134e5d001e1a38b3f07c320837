@@ -1,0 +1,17 @@
+package com.oredata.bookStore.business.responses;
+
+import java.util.Date;
+import java.util.List;
+
+import com.oredata.bookStore.entities.concretes.Book;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class GetByOrderIdOrderDetailsResponse {
+	private Book book;
+	private Integer quantity;
+}

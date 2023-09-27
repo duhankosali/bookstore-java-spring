@@ -1,0 +1,5 @@
+package com.oredata.bookStore.dataAccess.abstracts;
+
+public interface UserRepository {
+
+}

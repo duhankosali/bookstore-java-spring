@@ -1,0 +1,7 @@
+package com.oredata.bookStore.business.abstracts;
+
+import com.oredata.bookStore.business.responses.GetByUserIdOrdersResponse;
+
+public interface OrderService {
+	GetByUserIdOrdersResponse getById(String isbn);
+}

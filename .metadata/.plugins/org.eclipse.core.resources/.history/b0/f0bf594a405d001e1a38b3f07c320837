@@ -1,0 +1,16 @@
+package com.oredata.bookStore.webApi.controllers;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.oredata.bookStore.business.abstracts.BookService;
+import com.oredata.bookStore.business.abstracts.OrderService;
+
+import lombok.AllArgsConstructor;
+
+@RestController // REST controller
+@RequestMapping("/orders")
+@AllArgsConstructor
+public class OrdersController {
+	private OrderService orderService;
+}

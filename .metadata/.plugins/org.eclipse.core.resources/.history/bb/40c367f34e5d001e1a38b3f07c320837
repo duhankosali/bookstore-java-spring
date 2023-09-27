@@ -1,0 +1,5 @@
+package com.oredata.bookStore.business.requests;
+
+public class CreateOrderRequest {
+
+}

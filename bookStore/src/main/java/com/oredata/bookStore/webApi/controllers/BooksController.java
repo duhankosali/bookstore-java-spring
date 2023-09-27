@@ -25,7 +25,7 @@ import lombok.AllArgsConstructor;
 // GET: /books --> Get all books but DESC (createdAt)
 //GET: /books/{isbn} : Retrieve details of a book by ISBN.
 // POST: /books --> Add a new book (Admin only)
-
+// DELETE: /books/{isbn} : Delete a book by ISBN ("Admin Only)
 @RestController // REST controller
 @RequestMapping("/books")
 @AllArgsConstructor

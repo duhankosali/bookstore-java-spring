@@ -37,7 +37,7 @@ public class Book {
 	private Date createdAt;
 	@Column(name="updatedAt")
 	private Date updatedAt;
-	
+		
 	@PrePersist // add
     public void prePersist() {
         this.createdAt = new Date();

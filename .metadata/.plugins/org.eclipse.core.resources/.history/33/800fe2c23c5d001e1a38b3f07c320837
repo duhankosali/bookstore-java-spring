@@ -1,0 +1,5 @@
+package com.oredata.bookStore.business.responses;
+
+public class GetByUserIdOrdersResponse {
+
+}

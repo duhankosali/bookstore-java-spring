@@ -1,0 +1,9 @@
+package com.oredata.bookStore.business.responses;
+
+import com.oredata.bookStore.entities.concretes.Book;
+
+public class GetByOrderIdOrderDetailsResponse {
+	private String userName;
+	private Book book;
+	private Integer quantity;
+}
