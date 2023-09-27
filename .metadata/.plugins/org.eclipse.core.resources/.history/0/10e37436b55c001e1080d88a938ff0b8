@@ -1,0 +1,19 @@
+package com.oredata.bookStore.common.utilities.mappers;
+
+import org.modelmapper.ModelMapper;
+
+public class ModelMapperManager implements ModelMapperService{
+	private ModelMapper modelMapper;
+	@Override
+	public ModelMapper forResponse() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ModelMapper forRequest() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

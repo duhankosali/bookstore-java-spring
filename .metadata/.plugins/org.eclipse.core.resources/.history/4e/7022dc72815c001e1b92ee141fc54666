@@ -1,0 +1,5 @@
+package com.oredata.bookStore.dataAccess.concretes;
+
+public class InMemoryBrandRepository {
+
+}

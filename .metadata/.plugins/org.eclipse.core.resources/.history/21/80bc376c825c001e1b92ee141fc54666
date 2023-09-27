@@ -1,0 +1,5 @@
+package com.oredata.bookStore.business.abstracts;
+
+public interface BookService {
+
+}

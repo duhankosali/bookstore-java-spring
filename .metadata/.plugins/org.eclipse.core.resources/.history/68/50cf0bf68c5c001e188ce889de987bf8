@@ -1,0 +1,28 @@
+package com.oredata.bookStore.webApi.controllers;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.oredata.bookStore.business.abstracts.BookService;
+import com.oredata.bookStore.entities.concretes.Book;
+
+@RestController // REST controller
+@RequestMapping("/books")
+public class BooksController {
+	private BookService bookService;
+	
+	@Autowired
+	public BooksController(BookService bookService) {
+		this.bookService = bookService;
+	}
+	
+	@GetMapping
+	public List<Book> getAll() {
+		System.out.print("İş Kuralları");
+		return bookService.getAll();
+	}	
+}

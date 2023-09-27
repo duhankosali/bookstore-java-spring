@@ -1,0 +1,9 @@
+package com.oredata.bookStore.dataAccess.abstracts;
+
+import java.util.List;
+
+import com.oredata.bookStore.entities.concretes.Book;
+
+public interface BookRepository {
+	List<Book> getAll();
+}

@@ -1,0 +1,29 @@
+package com.oredata.bookStore.entities.concretes;
+
+import java.util.Date;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Table(name="books")
+@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+public class Book {
+	private String isbn; // unique
+	private String title;
+	private String author;
+	private Double price;
+	private Integer stockQuantity;
+	
+	private Date createdAt;
+	private Date updatedAt;
+}

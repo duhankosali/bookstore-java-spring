@@ -1,0 +1,12 @@
+package com.oredata.bookStore.dataAccess.abstracts;
+
+import java.util.List;
+
+import org.springframework.stereotype.Repository;
+
+import com.oredata.bookStore.entities.concretes.Book;
+
+@Repository
+public interface BookRepository {
+	List<Book> getAll();
+}

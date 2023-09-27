@@ -1,0 +1,43 @@
+package com.oredata.bookStore.webApi.controllers;
+
+import java.util.Comparator;
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.oredata.bookStore.business.abstracts.BookService;
+import com.oredata.bookStore.business.requests.CreateBookRequest;
+import com.oredata.bookStore.business.responses.GetAllBooksResponse;
+
+import lombok.AllArgsConstructor;
+
+// GET: /books --> Get all books but DESC (createdAt)
+// POST: /books --> Add a new book (Admin only)
+
+@RestController // REST controller
+@RequestMapping("/books")
+@AllArgsConstructor
+public class BooksController {
+	private BookService bookService;
+	
+	@GetMapping
+	public List<GetAllBooksResponse> getAll() {
+		System.out.print("GET /books : Retrieve a list of all books ordered by creation date DESC.");
+		List<GetAllBooksResponse> books = bookService.getAll();
+		books.sort(Comparator.comparing(GetAllBooksResponse::getCreatedAt).reversed());
+		return books;
+	}	
+	
+	@PostMapping
+	@ResponseStatus(code=HttpStatus.CREATED)
+	public void add(CreateBookRequest createBookRequest) {
+		System.out.print("POST: /books --> Add a new book (Admin only)");
+		this.bookService.add(createBookRequest);
+	}
+}
+		

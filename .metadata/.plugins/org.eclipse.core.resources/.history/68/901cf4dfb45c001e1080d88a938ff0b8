@@ -1,0 +1,5 @@
+package com.oredata.bookStore.common.utilities.mappers;
+
+public interface ModelMapperService {
+	
+}

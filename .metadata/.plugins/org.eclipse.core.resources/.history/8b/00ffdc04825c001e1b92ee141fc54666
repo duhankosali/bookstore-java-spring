@@ -1,0 +1,22 @@
+package com.oredata.bookStore.dataAccess.concretes;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.oredata.bookStore.dataAccess.abstracts.BookRepository;
+import com.oredata.bookStore.entities.concretes.Book;
+
+public class InMemoryBookRepository implements BookRepository {
+	List<Book> books;
+	
+	public InMemoryBookRepository() {
+		books = new ArrayList<Book>();
+		books.add(new Book("ISBN123", "Title", "Author", 15.5, 5));
+	}
+
+	@Override
+	public List<Book> getAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+}

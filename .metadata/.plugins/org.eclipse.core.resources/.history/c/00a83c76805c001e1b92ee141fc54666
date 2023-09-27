@@ -1,0 +1,87 @@
+package com.oredata.bookStore.entities.concretes;
+
+import java.util.Date;
+
+public class Book {
+	private String isbn; // unique
+	private String title;
+	private String author;
+	private Double price;
+	private Integer stockQuantity;
+	
+	private Date createdAt;
+	private Date updatedAt;
+	
+	// constructors
+	public Book() {
+	}
+
+	public Book(String isbn, String title, String author, Double price, Integer stockQuantity) {
+		this.isbn = isbn;
+		this.title = title;
+		this.author = author;
+		this.price = price;
+		this.stockQuantity = stockQuantity;
+		this.createdAt = new Date();
+		this.updatedAt = new Date();
+	}
+
+	public String getIsbn() {
+		return isbn;
+	}
+
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+	public Integer getStockQuantity() {
+		return stockQuantity;
+	}
+
+	public void setStockQuantity(Integer stockQuantity) {
+		this.stockQuantity = stockQuantity;
+	}
+
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public Date getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+	
+	
+	
+}

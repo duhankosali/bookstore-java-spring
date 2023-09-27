@@ -1,0 +1,27 @@
+package com.oredata.bookStore.dataAccess.concretes;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.stereotype.Repository;
+
+import com.oredata.bookStore.dataAccess.abstracts.BookRepository;
+import com.oredata.bookStore.entities.concretes.Book;
+
+@Repository // DAO
+public class InMemoryBookRepository implements BookRepository {
+	List<Book> books;
+	
+	public InMemoryBookRepository() {
+		books = new ArrayList<Book>();
+		books.add(new Book("ISBN1", "Title", "Author", 15.5, 5));
+		books.add(new Book("ISBN12", "Title2", "Author2", 25.5, 10));
+		books.add(new Book("ISBN123", "Title3", "Author3", 35.5, 15));
+	}
+
+	@Override
+	public List<Book> getAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+}

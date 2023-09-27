@@ -1,0 +1,11 @@
+package com.oredata.bookStore.business.abstracts;
+
+import java.util.List;
+
+import com.oredata.bookStore.business.requests.CreateBookRequest;
+import com.oredata.bookStore.business.responses.GetAllBooksResponse;
+
+public interface BookService {
+	List<GetAllBooksResponse> getAll(); // response method
+	void add(CreateBookRequest createBookRequest);
+}

@@ -1,0 +1,13 @@
+package com.oredata.bookStore.business.requests;
+
+import java.util.Date;
+
+public class CreateBookRequest {
+	private String isbn; // unique
+	private String title;
+	private String author;
+	private Double price;
+	private Integer stockQuantity;
+	private Date createdAt;
+	private Date updatedAt;
+}

@@ -1,0 +1,27 @@
+package com.oredata.bookStore.business.concretes;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.oredata.bookStore.dataAccess.abstracts.BookRepository;
+import com.oredata.bookStore.business.abstracts.BookService;
+import com.oredata.bookStore.entities.concretes.Book;
+
+@Service
+public class BookManager implements BookService{
+	private BookRepository bookRepository;
+	
+	@Autowired
+	public BookManager(BookRepository bookRepository) {
+		this.bookRepository = bookRepository;
+	}
+	
+	@Override
+	public List<Book> getAll() {
+		// Business logic
+		return bookRepository.getAll();
+	}
+
+}

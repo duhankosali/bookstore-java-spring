@@ -1,0 +1,6 @@
+package com.oredata.bookStore.entities.concretes;
+
+public class Book {
+	private String isbn;
+	private String name;
+}

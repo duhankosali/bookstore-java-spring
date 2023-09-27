@@ -1,0 +1,8 @@
+package com.oredata.bookStore.webApi.controllers;
+
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController // annotation
+public class BooksController {
+
+}
