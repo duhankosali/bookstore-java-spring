@@ -2,8 +2,12 @@ package com.oredata.bookStore.entities.concretes;
 
 import java.util.Date;
 
+import com.oredata.bookStore.common.utilities.enums.UserRole;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -29,6 +33,10 @@ public class Users {
     @Column(name="id")
     private Long id;
 
+    @Column(name="role")
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
+    
     @Column(name="name")
     private String name;
 
@@ -40,7 +48,7 @@ public class Users {
 
     @Column(name="createdAt")
     private Date createdAt;
-
+ 
     @Column(name="updatedAt")
     private Date updatedAt;
 

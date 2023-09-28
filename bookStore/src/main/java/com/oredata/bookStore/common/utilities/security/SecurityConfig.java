@@ -74,6 +74,10 @@ public class SecurityConfig {
     		.exceptionHandling().authenticationEntryPoint(handler).and()
     		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
     		.authorizeRequests()
+    		.requestMatchers(HttpMethod.POST, "/books/**").hasRole("ADMIN")
+    		.requestMatchers(HttpMethod.PUT, "/books/**").hasRole("ADMIN")
+    		.requestMatchers(HttpMethod.DELETE, "/books/**").hasRole("ADMIN")
+    		
     		.requestMatchers(HttpMethod.GET, "/users/**").permitAll() // GET requests
             .requestMatchers(HttpMethod.POST, "/users/**").permitAll() // POST requests
             .requestMatchers(HttpMethod.PUT, "/users/**").permitAll() // PUT requests

@@ -1,9 +1,12 @@
 package com.oredata.bookStore.security;
 
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Claims;
@@ -23,13 +26,24 @@ public class JwtTokenProvider {
 	private long EXPIRES_IN;
 	
 	public String generateJwtToken(Authentication auth) {
-		JwtUserDetails userDetails = (JwtUserDetails) auth.getPrincipal();
-		Date expireDate = new Date(new Date().getTime() + EXPIRES_IN);
-		
-		return Jwts.builder().setSubject(Long.toString(userDetails.getId()))
-				.setIssuedAt(new Date()).setExpiration(expireDate)
-				.signWith(SignatureAlgorithm.HS512, APP_SECRET).compact();
+	    JwtUserDetails userDetails = (JwtUserDetails) auth.getPrincipal();
+	    Date expireDate = new Date(new Date().getTime() + EXPIRES_IN);
+
+	    // Kullanıcının rollerini al
+	    List<String> roles = userDetails.getAuthorities()
+	                                    .stream()
+	                                    .map(GrantedAuthority::getAuthority)
+	                                    .collect(Collectors.toList());
+
+	    return Jwts.builder()
+	               .setSubject(Long.toString(userDetails.getId()))
+	               .claim("roles", roles)  // Rol bilgisini token'a ekle
+	               .setIssuedAt(new Date())
+	               .setExpiration(expireDate)
+	               .signWith(SignatureAlgorithm.HS512, APP_SECRET)
+	               .compact();
 	}
+
 	
 	Long getUserIdFromJwt(String token) {
 		Claims claims = Jwts.parser().setSigningKey(APP_SECRET).parseClaimsJws(token).getBody();

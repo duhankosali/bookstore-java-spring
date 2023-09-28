@@ -26,6 +26,7 @@ public class UserManager implements UserService {
 	public ResponseEntity<String> create(CreateUserRequest registerRequest){
 		Users user = new Users();
 		user.setEmail(registerRequest.getEmail());
+		user.setRole(registerRequest.getRole());
 		user.setName(registerRequest.getName());
 		user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));	
 		userRepository.save(user);

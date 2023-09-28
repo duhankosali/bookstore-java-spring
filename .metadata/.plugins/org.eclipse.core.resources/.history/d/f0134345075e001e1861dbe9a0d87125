@@ -1,0 +1,15 @@
+package com.oredata.bookStore.business.requests;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class CreateUserRequest {
+	String email;
+	String role; // USER or ADMIN, Rolün buradan gönderilmesi normalde doğru değil farklı şekilde ele alınmalı
+	String name;
+	String password;
+}
