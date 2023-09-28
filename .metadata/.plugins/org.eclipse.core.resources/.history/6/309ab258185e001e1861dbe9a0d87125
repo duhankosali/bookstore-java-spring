@@ -1,0 +1,60 @@
+package com.oredata.bookStore.common.utilities.swagger;
+
+import java.util.Arrays;
+import java.util.List;
+
+import org.springdoc.core.customizers.OperationCustomizer;
+import org.springframework.context.annotation.Bean;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.method.HandlerMethod;
+
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.parameters.Parameter;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
+
+@Configuration
+public class SwaggerConfig {
+	@Bean
+    public OpenAPI customOpenAPI() { 
+        return new OpenAPI()
+                .addSecurityItem(new SecurityRequirement().addList("BearerAuth"))
+                .components(new io.swagger.v3.oas.models.Components()
+                        .addSecuritySchemes("BearerAuth", new SecurityScheme()
+                                .type(SecurityScheme.Type.HTTP)
+                                .scheme("bearer")
+                                .bearerFormat("JWT")));
+    }
+
+	@Bean
+	public OperationCustomizer customize() {
+	    return (operation, handlerMethod) -> {
+	        String requestMappingPath = getRequestMappingPath(handlerMethod);
+
+	        // İstisna olan endpointler listesi
+	        List<String> excludedPaths = Arrays.asList("/users/signUp", "/users/login");
+
+	        if (!excludedPaths.contains(requestMappingPath)) {
+	            Parameter authHeader = new Parameter().in("header")
+	                    .name("Authorization")
+	                    .description("Access token for the API. (If you do not have a token, you can get it using the '/users' endpoints.)")
+	                    .required(true);
+	            operation.addParametersItem(authHeader);
+	        }
+	        return operation;
+	    };
+	}
+
+	private String getRequestMappingPath(HandlerMethod handlerMethod) {
+	    RequestMapping requestMappingAnnotation = handlerMethod.getBeanType().getAnnotation(RequestMapping.class);
+	    String basePath = (requestMappingAnnotation != null && requestMappingAnnotation.value().length > 0) ? requestMappingAnnotation.value()[0] : "";
+	    PostMapping methodAnnotation = handlerMethod.getMethodAnnotation(PostMapping.class);
+	    String methodPath = (methodAnnotation != null && methodAnnotation.value().length > 0) ? methodAnnotation.value()[0] : "";
+	    return basePath + methodPath;
+	}
+
+}
+

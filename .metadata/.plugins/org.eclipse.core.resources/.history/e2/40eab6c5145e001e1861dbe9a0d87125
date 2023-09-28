@@ -1,0 +1,37 @@
+package com.oredata.bookStore.common.utilities.swagger;
+
+import org.springdoc.core.customizers.OperationCustomizer;
+import org.springframework.context.annotation.Bean;
+
+import org.springframework.context.annotation.Configuration;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.parameters.Parameter;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
+
+@Configuration
+public class SwaggerConfig {
+	@Bean
+    public OpenAPI customOpenAPI() {
+        return new OpenAPI()
+                .addSecurityItem(new SecurityRequirement().addList("BearerAuth"))
+                .components(new io.swagger.v3.oas.models.Components()
+                        .addSecuritySchemes("BearerAuth", new SecurityScheme()
+                                .type(SecurityScheme.Type.HTTP)
+                                .scheme("bearer")
+                                .bearerFormat("JWT")));
+    }
+
+    @Bean
+    public OperationCustomizer customize() {
+        return (operation, handlerMethod) -> {
+            Parameter authHeader = new Parameter().in("header")
+                    .name("Authorization")
+                    .description("JWT token for the API (To get JWT tokens, you can first use /users endpoints.).")
+                    .required(true);
+            operation.addParametersItem(authHeader);
+            return operation;
+        };
+    }
+}
+

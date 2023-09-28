@@ -4,6 +4,8 @@ package com.oredata.bookStore.business.concretes;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.oredata.bookStore.business.abstracts.OrderService;
@@ -56,15 +58,15 @@ public class OrderManager implements OrderService{
 
 	// add and add helper methods.
 	@Override
-	public String add(CreateOrderRequest createOrderRequest) {
+	public ResponseEntity<String> add(CreateOrderRequest createOrderRequest) {
 	    double totalAmount = calculateTotalAmount(createOrderRequest.getBooks());
 	    if(totalAmount < 25) {
-	    	return "You can't order under 25TL.";
+	    	return new ResponseEntity<>("Minimum order amount is 25 TL.", HttpStatus.BAD_REQUEST);
 	    }
 	    Orders newOrder = saveNewOrder(createOrderRequest.getUserId(), totalAmount);
 	    saveOrderBooks(newOrder, createOrderRequest.getBooks());
-	    return "Operation successful.";
-	}
+	    return new ResponseEntity<>("Your order has been completed successfully.", HttpStatus.CREATED);
+	}	
 
 	private double calculateTotalAmount(List<BookOrder> bookOrders) {
 	    double totalAmount = 0;
@@ -87,12 +89,13 @@ public class OrderManager implements OrderService{
 	    return orderRepository.save(newOrder);
 	}
 
-	@SuppressWarnings("deprecation")
+	@SuppressWarnings("deprecation") 
 	private void saveOrderBooks(Orders order, List<BookOrder> bookOrders) {
 	    for (BookOrder bookOrder : bookOrders) {
 	        OrderBook orderBook = new OrderBook();
 	        orderBook.setOrder(order);
 	        orderBook.setBook(bookRepository.getById(bookOrder.getIsbn()));
+	        orderBook.getBook().setStockQuantity(orderBook.getBook().getStockQuantity() - bookOrder.getQuantity()); // stockQuantity - orderedQuantity
 	        orderBook.setQuantity(bookOrder.getQuantity());
 	        orderBookRepository.save(orderBook);
 	    }

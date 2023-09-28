@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UpdateBookRequest {
-	private String isbn; // unique
 	private String title;
 	private String author;
 	private Double price;

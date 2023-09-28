@@ -1,0 +1,46 @@
+package com.oredata.bookStore.common.utilities.swagger;
+
+import java.util.Arrays;
+import java.util.List;
+
+import org.springdoc.core.customizers.OperationCustomizer;
+import org.springframework.context.annotation.Bean;
+
+import org.springframework.context.annotation.Configuration;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.parameters.Parameter;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
+
+@Configuration
+public class SwaggerConfig {
+	@Bean
+    public OpenAPI customOpenAPI() { 
+        return new OpenAPI()
+                .addSecurityItem(new SecurityRequirement().addList("BearerAuth"))
+                .components(new io.swagger.v3.oas.models.Components()
+                        .addSecuritySchemes("BearerAuth", new SecurityScheme()
+                                .type(SecurityScheme.Type.HTTP)
+                                .scheme("bearer")
+                                .bearerFormat("JWT")));
+    }
+
+	@Bean
+	public OperationCustomizer customize() {
+	    return (operation, handlerMethod) -> {
+
+	        List<String> excludedPaths = Arrays.asList("/users/signUp", "/users/login");
+
+	        if (operation.getTags() != null && operation.getTags().stream().noneMatch(excludedPaths::contains)) {
+	            Parameter authHeader = new Parameter().in("header")
+	                    .name("Authorization")
+	                    .description("Access token for the API.")
+	                    .required(true);
+	            operation.addParametersItem(authHeader);
+	        }
+	        return operation;
+	    };
+	}
+
+}
+

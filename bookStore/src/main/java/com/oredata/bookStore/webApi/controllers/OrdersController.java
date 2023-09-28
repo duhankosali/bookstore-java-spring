@@ -3,6 +3,7 @@ package com.oredata.bookStore.webApi.controllers;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,7 +40,7 @@ public class OrdersController {
 	
 	@PostMapping
 	@ResponseStatus(code=HttpStatus.CREATED)
-	public void add(@RequestBody CreateOrderRequest createOrderRequest) {
-		this.orderService.add(createOrderRequest);
+	public ResponseEntity<String> add(@RequestBody CreateOrderRequest createOrderRequest) {
+		return this.orderService.add(createOrderRequest);
 	}
 }

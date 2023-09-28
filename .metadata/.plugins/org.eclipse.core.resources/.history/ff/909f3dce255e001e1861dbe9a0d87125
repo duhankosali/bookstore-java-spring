@@ -1,0 +1,5 @@
+package com.oredata.bookStore.common.utilities.customExceptions;
+
+public class CustomExceptions {
+
+}

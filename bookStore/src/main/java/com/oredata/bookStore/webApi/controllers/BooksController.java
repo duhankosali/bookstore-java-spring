@@ -4,6 +4,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +27,7 @@ import lombok.AllArgsConstructor;
 //GET: /books/{isbn} : Retrieve details of a book by ISBN.
 // POST: /books --> Add a new book (Admin only)
 // DELETE: /books/{isbn} : Delete a book by ISBN ("Admin Only)
+
 @RestController // REST controller
 @RequestMapping("/books")
 @AllArgsConstructor
@@ -40,6 +42,12 @@ public class BooksController {
 		return books;
 	}	
 	
+	@GetMapping("/page/{pageNumber}")
+	public List<GetAllBooksResponse> getAllPagination(@PathVariable int pageNumber) {
+		List<GetAllBooksResponse> books = bookService.getAllPagination(pageNumber);
+		return books;
+	}	
+	
 	@GetMapping("/{isbn}")
 	public GetByIdBookResponse getById(@PathVariable String isbn) {
 		System.out.print("GET: /books/"+isbn + " : Retrieve details of a book by ISBN.");
@@ -48,20 +56,20 @@ public class BooksController {
 	
 	@PostMapping
 	@ResponseStatus(code=HttpStatus.CREATED)
-	public void add(CreateBookRequest createBookRequest) {
+	public ResponseEntity<String> add(CreateBookRequest createBookRequest) {
 		System.out.print("POST: /books --> Add a new book (Admin only)");
-		this.bookService.add(createBookRequest);
+		return this.bookService.add(createBookRequest);
 	}
 	
-	@PutMapping
-	public void update(@RequestBody UpdateBookRequest updateBookRequest) {
-		System.out.print("PUT: /books/{isbn} : Update details of a book (Admin only)");
-		this.bookService.update(updateBookRequest);
+	@PutMapping("/{isbn}")
+	public ResponseEntity<String> update(@PathVariable String isbn, @RequestBody UpdateBookRequest updateBookRequest) {
+	    System.out.print("PUT: /books/" + isbn + " : Update details of a book (Admin only)");	    
+	    return this.bookService.update(updateBookRequest, isbn);
 	}
 	
 	@DeleteMapping("/{isbn}")
-	public void delete(@PathVariable String isbn) {
-		this.bookService.delete(isbn);
+	public ResponseEntity<String> delete(@PathVariable String isbn) {
+		return this.bookService.delete(isbn);
 	}
 }
 		

@@ -1,0 +1,37 @@
+package com.oredata.bookStore.config;
+
+import org.springdoc.core.GroupedOpenApi;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springdoc.core.customizers.OpenApiCustomiser;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
+
+@Configuration
+public class SwaggerConfig {
+
+    @Bean
+    public OpenAPI customOpenAPI() {
+        return new OpenAPI()
+                .addSecurityItem(new SecurityRequirement().addList("Bearer"))
+                .components(
+                        new io.swagger.v3.oas.models.Components()
+                                .addSecuritySchemes("Bearer",
+                                        new SecurityScheme()
+                                                .type(SecurityScheme.Type.HTTP)
+                                                .scheme("bearer")
+                                                .bearerFormat("JWT")
+                                                .in(SecurityScheme.In.HEADER)
+                                                .name("Authorization")
+                                )
+                );
+    }
+
+    @Bean
+    public GroupedOpenApi defaultApi() {
+        String[] paths = {"/**"};
+        return GroupedOpenApi.builder().group("default").pathsToMatch(paths)
+                .build();
+    }
+}

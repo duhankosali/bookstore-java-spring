@@ -30,11 +30,11 @@ public class JwtUserDetails implements UserDetails{
     }
 	
 	public static JwtUserDetails create(Users user) {
-        List<GrantedAuthority> authoritiesList = new ArrayList<>();
-        authoritiesList.add(new SimpleGrantedAuthority("ROLE_USER")); // user role
-        authoritiesList.add(new SimpleGrantedAuthority("ROLE_ADMIN")); // admin role
-        return new JwtUserDetails(user.getId(), user.getEmail(), user.getPassword(), authoritiesList);
-    }
+	    List<GrantedAuthority> authoritiesList = new ArrayList<>();
+	    authoritiesList.add(new SimpleGrantedAuthority("ROLE_" + user.getRole()));
+	    return new JwtUserDetails(user.getId(), user.getEmail(), user.getPassword(), authoritiesList);
+	}
+
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -44,7 +44,6 @@ public class JwtUserDetails implements UserDetails{
 
 	@Override
 	public String getPassword() {
-		System.out.println(this.password);
 		return this.password;
 	}
 

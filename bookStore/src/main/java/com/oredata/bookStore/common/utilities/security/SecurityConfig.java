@@ -74,14 +74,17 @@ public class SecurityConfig {
     		.exceptionHandling().authenticationEntryPoint(handler).and()
     		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
     		.authorizeRequests()
+    		.requestMatchers(HttpMethod.GET, "/books/**").hasAnyRole("USER", "ADMIN")
     		.requestMatchers(HttpMethod.POST, "/books/**").hasRole("ADMIN")
     		.requestMatchers(HttpMethod.PUT, "/books/**").hasRole("ADMIN")
     		.requestMatchers(HttpMethod.DELETE, "/books/**").hasRole("ADMIN")
+    	
+    		.requestMatchers(HttpMethod.GET, "/orders/**").hasAnyRole("USER", "ADMIN")
+    		.requestMatchers(HttpMethod.POST, "/orders/**").hasAnyRole("USER", "ADMIN")
     		
-    		.requestMatchers(HttpMethod.GET, "/users/**").permitAll() // GET requests
             .requestMatchers(HttpMethod.POST, "/users/**").permitAll() // POST requests
-            .requestMatchers(HttpMethod.PUT, "/users/**").permitAll() // PUT requests
-    		.anyRequest().authenticated();
+    		;
+    		 
     		
     	httpSecurity.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     	return httpSecurity.build();
