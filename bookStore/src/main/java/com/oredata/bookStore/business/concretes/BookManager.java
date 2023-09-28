@@ -38,7 +38,7 @@ public class BookManager implements BookService{
 	
 	@Override
 	public List<GetAllBooksResponse> getAllPagination(int pageNumber) {
-	    final int pageSize = 1; // page size
+	    final int pageSize = 3; // page size
 	    List<Book> books = bookRepository.findAll();
 	    
 	    // updatedAt DESC
