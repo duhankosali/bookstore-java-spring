@@ -1,5 +1,0 @@
-package com.oredata.bookStore.common.utilities.security;
-
-public class SecurityConfig {
-
-}

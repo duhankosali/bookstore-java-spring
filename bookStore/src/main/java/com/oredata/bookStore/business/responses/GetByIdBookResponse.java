@@ -2,6 +2,8 @@ package com.oredata.bookStore.business.responses;
 
 import java.util.Date;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetByIdBookResponse {
+public class GetByIdBookResponse extends RepresentationModel<GetByIdBookResponse> { // using HATEOAS 
 	private String isbn; // unique
 	private String title;
 	private String author;

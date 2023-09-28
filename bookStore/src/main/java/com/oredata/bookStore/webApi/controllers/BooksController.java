@@ -3,8 +3,12 @@ package com.oredata.bookStore.webApi.controllers;
 import java.util.Comparator;
 import java.util.List;
 
+import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 import com.oredata.bookStore.business.abstracts.BookService;
 import com.oredata.bookStore.business.requests.CreateBookRequest;
@@ -49,10 +54,31 @@ public class BooksController {
 	}	
 	
 	@GetMapping("/{isbn}")
-	public GetByIdBookResponse getById(@PathVariable String isbn) {
-		System.out.print("GET: /books/"+isbn + " : Retrieve details of a book by ISBN.");
-		return bookService.getById(isbn);
-	}	
+	public ResponseEntity<GetByIdBookResponse> getById(@PathVariable String isbn, @AuthenticationPrincipal UserDetails userDetails) {
+	    System.out.print("GET: /books/"+isbn + " : Retrieve details of a book by ISBN.");
+	    
+	    GetByIdBookResponse response = bookService.getById(isbn);
+
+	    if (response == null) {
+	        return ResponseEntity.notFound().build();
+	    }
+	    
+	    
+	    // HATEOS --> Normal bir kullanıcı  GET /books/{isbn} endpointi hakkında bilgi alıyor.
+	    Link selfLink = linkTo(methodOn(BooksController.class).getById(isbn, userDetails)).withSelfRel();
+	    response.add(selfLink);
+	    
+	    // HATEOS --> ROLE_ADMIN yetkisinde bir kullanıcı  GET, UPDATE, DELETE endpointleri hakkında bilgi alıyor.
+	    if (userDetails.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
+	        Link updateLink = linkTo(methodOn(BooksController.class).update(isbn, null)).withRel("update");
+	        Link deleteLink = linkTo(methodOn(BooksController.class).delete(isbn)).withRel("delete");
+	        
+	        response.add(updateLink, deleteLink);
+	    }
+
+	    return ResponseEntity.ok(response);
+	}
+
 	
 	@PostMapping
 	@ResponseStatus(code=HttpStatus.CREATED)
