@@ -1,0 +1,20 @@
+package com.oredata.bookStore.business.concretes;
+
+import org.springframework.stereotype.Service;
+
+import com.oredata.bookStore.business.abstracts.UserService;
+import com.oredata.bookStore.dataAccess.abstracts.UserRepository;
+import com.oredata.bookStore.entities.concretes.Users;
+
+import lombok.AllArgsConstructor;
+
+@Service // Business
+@AllArgsConstructor
+public class UserManager implements UserService {
+	UserRepository userRepository;
+	@Override
+	public Users getOneUserByEmail(String email) {
+		return userRepository.findByEmail(email);
+	}
+	
+}

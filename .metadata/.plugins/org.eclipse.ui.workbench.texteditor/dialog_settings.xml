@@ -8,6 +8,7 @@
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="rders_pkey"/>
 			<item value="  @OneToMany(mappedBy = &quot;order&quot;, cascade = CascadeType.ALL, fetch = FetchType.LAZY)"/>
 			<item value="@OneToMany(mappedBy = &quot;order&quot;, cascade = CascadeType.ALL, fetch = FetchType.LAZY)"/>
 			<item value="ModelMapperService"/>

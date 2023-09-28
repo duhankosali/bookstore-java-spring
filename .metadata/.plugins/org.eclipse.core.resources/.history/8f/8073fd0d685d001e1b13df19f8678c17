@@ -1,0 +1,10 @@
+package com.oredata.bookStore.security;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class JwtTokenProvider {
+	@Value("${bookstore.app.secret}")
+	private String APP_SECRET;
+	private long EXPIRES_IN;
+}

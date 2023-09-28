@@ -1,0 +1,35 @@
+package com.oredata.bookStore.webApi.controllers;
+
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.oredata.bookStore.business.abstracts.OrderService;
+import com.oredata.bookStore.business.requests.LoginUserRequest;
+import com.oredata.bookStore.security.JwtTokenProvider;
+
+import lombok.AllArgsConstructor;
+
+@RestController
+@RequestMapping("/users")
+@AllArgsConstructor
+public class UsersController {
+	
+	private AuthenticationManager authenticationManager;
+	
+	private JwtTokenProvider jwtTokenProvider;
+	
+	@PostMapping("/signIn")
+	public String login (@RequestBody LoginUserRequest loginRequest) {
+		UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword());
+		Authentication auth = authenticationManager.authenticate(authToken);
+		SecurityContextHolder.getContext().setAuthentication(auth);
+		String jwtToken = jwtTokenProvider.generateJwtToken(auth);
+		return null;
+	}
+}

@@ -1,0 +1,7 @@
+package com.oredata.bookStore.business.abstracts;
+
+import com.oredata.bookStore.entities.concretes.Users;
+
+public interface UserService {
+	Users getOneUserByEmail(String email);
+}

@@ -1,0 +1,7 @@
+package com.oredata.bookStore.webApi.controllers;
+
+@RestController
+@RequestMapping("/users")
+public class UsersController {
+
+}

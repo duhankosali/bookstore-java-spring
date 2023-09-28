@@ -1,0 +1,6 @@
+package com.oredata.bookStore.business.requests;
+
+public class LoginUserRequest {
+	String email;
+	String password;
+}

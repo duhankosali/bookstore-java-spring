@@ -1,0 +1,18 @@
+package com.oredata.bookStore.business.concretes;
+
+import org.springframework.stereotype.Service;
+
+import com.oredata.bookStore.business.abstracts.UserService;
+import com.oredata.bookStore.common.utilities.mappers.ModelMapperService;
+import com.oredata.bookStore.dataAccess.abstracts.BookRepository;
+import com.oredata.bookStore.dataAccess.abstracts.OrderBookRepository;
+import com.oredata.bookStore.dataAccess.abstracts.OrderRepository;
+import com.oredata.bookStore.dataAccess.abstracts.UserRepository;
+
+import lombok.AllArgsConstructor;
+
+@Service // Business
+@AllArgsConstructor
+public class UserManager implements UserService {
+
+}
