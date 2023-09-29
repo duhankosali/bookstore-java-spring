@@ -33,6 +33,7 @@ import lombok.AllArgsConstructor;
 // POST: /books --> Add a new book (Admin only)
 // DELETE: /books/{isbn} : Delete a book by ISBN ("Admin Only)
 
+
 @RestController // REST controller
 @RequestMapping("/books")
 @AllArgsConstructor
@@ -66,7 +67,7 @@ public class BooksController {
 	    
 	    // HATEOS --> Normal bir kullanıcı  GET /books/{isbn} endpointi hakkında bilgi alıyor.
 	    Link selfLink = linkTo(methodOn(BooksController.class).getById(isbn, userDetails)).withSelfRel();
-	    response.add(selfLink);
+	    response.add(selfLink); 
 	    
 	    // HATEOS --> ROLE_ADMIN yetkisinde bir kullanıcı  GET, UPDATE, DELETE endpointleri hakkında bilgi alıyor.
 	    if (userDetails.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
